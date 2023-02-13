@@ -4,6 +4,17 @@ body {
 #heading {
   background-color: rgb(35, 38, 46);
 }
+#heading img {
+  transition: transform 0.5s;
+}
+#heading h3 {
+  color: rgb(238, 217, 224);
+  text-shadow: 1px 1px 0 rgb(85, 85, 85);
+}
+#heading h5 {
+  color: rgb(190, 147, 153);
+  text-shadow: 1px 1px 2px rgb(8, 8, 8);
+}
 #navigation {
   border-top: 1px solid rgb(63, 63, 63);
   border-bottom: 1px solid rgb(63, 63, 63);
@@ -32,4 +43,8 @@ body {
 }
 footer {
   background-color: rgb(194, 203, 214);
+  display: none;
+}
+footer > div {
+  display: none;
 }
