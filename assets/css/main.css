@@ -1,0 +1,33 @@
+body {
+  background-color: rgb(101, 112, 126);
+}
+#heading {
+  background-color: rgb(35, 38, 46);
+}
+#navigation {
+  border-top: 1px solid rgb(63, 63, 63);
+  border-bottom: 1px solid rgb(63, 63, 63);
+  background-color: rgb(29, 28, 32);
+}
+#navigation > button {
+  margin: 0;
+  border-radius: 0;
+  font-family: 'Consolas';
+  color: whitesmoke;
+}
+#page-today {
+  cursor: default;
+  pointer-events: none;
+  border-left: 1px solid rgb(90, 88, 94);
+  border-right: 1px solid rgb(90, 88, 94);
+  border-bottom: 2px solid rgb(235, 77, 103);
+}
+#page-forecast:hover {
+  background-color: rgb(56, 54, 63);
+}
+#display {
+  background-color: dimgray;
+}
+footer {
+  background-color: rgb(194, 203, 214);
+}
