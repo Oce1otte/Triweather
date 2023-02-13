@@ -12,18 +12,20 @@ body {
 #navigation > button {
   margin: 0;
   border-radius: 0;
-  font-family: 'Consolas';
-  color: whitesmoke;
 }
-#page-today {
-  cursor: default;
+#navigation > button:hover {
+  background-color: rgb(56, 54, 63);
+}
+#today-tab {
   pointer-events: none;
   border-left: 1px solid rgb(90, 88, 94);
   border-right: 1px solid rgb(90, 88, 94);
   border-bottom: 2px solid rgb(235, 77, 103);
 }
-#page-forecast:hover {
-  background-color: rgb(56, 54, 63);
+#forecast-tab {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 #display {
   background-color: dimgray;
