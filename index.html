@@ -11,15 +11,20 @@
 <body class="h-100 d-flex flex-column">
   <header>
     <!-- Logo and Search -->
-    <nav id="heading" class="navbar">
+    <nav id="heading" class="navbar py-0">
       <div class="container-fluid">
-        <img style="width: 48px" src="assets/img/logo.png" alt="...">
+        <div class="d-block d-sm-none"></div>
+        <img style="width: 48px; z-index: 1" src="assets/img/logo.png" alt="...">
         <h3 class="ms-3 me-auto me-lg-1 d-none d-sm-inline">Triweather</h1>
         <h5 class="ms-1 me-auto d-none d-lg-inline"> - weather forecaster</h1>
+        <form class="col-10 col-sm-7 col-lg-5 me-md-3 d-flex" style="max-width: 565px" role="search">
+          <input id="search-field" class="form-control rounded-end-0" type="search" placeholder="Search" aria-label="Search">
+          <div class="my-1 my-lg-0" style="height: 56px"></div>
+        </form>
       </div>
     </nav>
     <!-- Page Selection -->
-    <nav id="navigation" class="py-0 px-3 d-flex justify-content-center">
+    <nav class="navigation py-0 px-3 d-flex justify-content-center">
       <button id="today-tab" class="btn pb-3 pb-md-2 text-light">Today</button>
       <button id="forecast-tab" class="btn pb-3 pb-md-2 text-light">5-day forecast</button>
     </nav>

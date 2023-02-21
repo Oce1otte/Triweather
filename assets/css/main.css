@@ -4,7 +4,16 @@ body {
 #heading {
   background-color: rgb(35, 38, 46);
 }
-#heading img {
+#heading > div > div {
+  top: 0; 
+  left: 0; 
+  width: 72px; 
+  height: 64px; 
+  position: absolute; 
+  background-color: rgb(48, 41, 49);
+}
+#heading > div > img {
+  margin: 8px 0;
   transition: transform 0.5s;
 }
 #heading h3 {
@@ -15,16 +24,41 @@ body {
   color: rgb(190, 147, 153);
   text-shadow: 1px 1px 2px rgb(8, 8, 8);
 }
-#navigation {
+#search-field {
+  min-width: 63px;
+  margin: 8px 0 8px 18px;
+  border: none;
+  background-color: rgb(50, 56, 68);
+  color: rgb(217, 228, 235);
+  transition: 0.2s;
+}
+#search-field:focus {
+  box-shadow: none;
+  outline: rgba(128, 165, 233, 0.3) solid 5px;
+}
+.form-control::placeholder {
+  color: rgb(85, 90, 102);
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder { 
+  color: rgb(85, 90, 102);
+}
+.form-control::-ms-input-placeholder { 
+  color: rgb(85, 90, 102);
+}
+.form-control::-webkit-input-placeholder {
+  color: rgb(85, 90, 102);
+}
+.navigation {
   border-top: 1px solid rgb(63, 63, 63);
   border-bottom: 1px solid rgb(63, 63, 63);
   background-color: rgb(29, 28, 32);
 }
-#navigation > button {
+.navigation > button {
   margin: 0;
   border-radius: 0;
 }
-#navigation > button:hover {
+.navigation > button:hover {
   background-color: rgb(56, 54, 63);
 }
 #today-tab {
