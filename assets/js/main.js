@@ -26,10 +26,10 @@ $(document).ready(() => {
 
   $('#heading').hover(
     function() {
-      $('#heading img').css('transform', 'rotate(270deg)');
+      $('#heading > div > img').css('transform', 'rotate(270deg)');
     },
     function() {
-      $('#heading img').css('transform', 'rotate(0deg)');
+      $('#heading > div > img').css('transform', 'rotate(0deg)');
     }
   );
 
