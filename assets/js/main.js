@@ -8,8 +8,6 @@ $(document).ready(() => {
   $('footer').fadeIn('slow');
   $('footer > div').show('drop', {direction: 'down'}, 'slow');
 
-  controller.getData();
-
   $('#today-tab').click(() => {
     controller.switchTab();
     $('footer').fadeIn('fast');
@@ -32,5 +30,16 @@ $(document).ready(() => {
       $('#heading > div > img').css('transform', 'rotate(0deg)');
     }
   );
+
+  controller.getData();
+  
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+      } 
+    );
+  }
 
 });
