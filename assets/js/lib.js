@@ -121,7 +121,7 @@ export class Controller {
       $('#weather-forecast').html(ForecastWeatherRenderer.render(model));
       $('#weather-hourly').html(HourlyWeatherRenderer.render(model));
       $('#weather-nearby').html(NearbyWeatherRenderer.render(model));
-      //$('#search input').attr('placeholder', model.name + ', ' + model.country);
+      $('#search input').attr('placeholder', model.name + ', ' + model.country);
 
       searchError.fadeOut('fast');
       if($('#forecast-tab').css('pointer-events') === 'none')
