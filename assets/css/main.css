@@ -72,8 +72,11 @@ body {
   border-right: 1px solid transparent;
   border-bottom: 2px solid transparent;
 }
-#display {
-  background-color: dimgray;
+#weather-hourly, #weather-nearby {
+  margin-top: 3rem;
+}
+#weather-notfound {
+  display: none;
 }
 footer {
   background-color: rgb(194, 203, 214);
