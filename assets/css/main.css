@@ -37,17 +37,17 @@ body {
   outline: rgba(128, 165, 233, 0.3) solid 5px;
 }
 .form-control::placeholder {
-  color: rgb(85, 90, 102);
+  color: rgb(166, 175, 180);
   opacity: 1;
 }
 .form-control:-ms-input-placeholder { 
-  color: rgb(85, 90, 102);
+  color: rgb(166, 175, 180);
 }
 .form-control::-ms-input-placeholder { 
-  color: rgb(85, 90, 102);
+  color: rgb(166, 175, 180);
 }
 .form-control::-webkit-input-placeholder {
-  color: rgb(85, 90, 102);
+  color: rgb(166, 175, 180);
 }
 .navigation {
   border-top: 1px solid rgb(63, 63, 63);
@@ -72,8 +72,10 @@ body {
   border-right: 1px solid transparent;
   border-bottom: 2px solid transparent;
 }
-#weather-hourly, #weather-nearby {
-  margin-top: 3rem;
+#display > div {
+  border: 2px solid rgb(80, 90, 100);
+  outline: rgb(70, 77, 87) solid 1px;
+  box-shadow: 0px 0px 20px #8c9aa3
 }
 #weather-notfound {
   display: none;
