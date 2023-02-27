@@ -11,7 +11,7 @@ export class Controller {
     this.#apiKey = '995f2b66e783fb11b10fb5cea5c732e8';
     this.#apiCurrentUrl = 'https://api.openweathermap.org/data/2.5/weather';
     this.#apiForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
-    this.#apiNearbyUrl = 'https://secure.geonames.org/findNearbyPlaceNameJSON?style=short&cities=cities15000&radius=300&maxRows=5&username=YehorMarichev';
+    this.#apiNearbyUrl = 'https://secure.geonames.org/findNearbyPlaceNameJSON?style=short&cities=cities15000&radius=300&maxRows=5&username=Triweather';
     this.#apiMediaUrl = 'http://openweathermap.org/img/w';
     this.#getParams = 'undefined';
     this.#validSearch = true;
