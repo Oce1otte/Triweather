@@ -1,50 +1,39 @@
-export class ShortForecast {
+export class Nearby {
 
     constructor() {
-        this.name = '-'; // day of week
-        this.date = '-'; // JUL 03
-        this.icon = '';
-        this.temperature = '-';
-        this.description = '-'; // extended - Clear, Warm
-        
-        this.feelsLike = '-';
-        this.windSpeed = '-';
-        this.windDirection = '';
+        this.name = '-';
+        this.iconUrl = '';
+        this.temp = '-';
     }
-
+    
 }
 
 export class Hourly {
 
     constructor() {
         this.time = '-';
-        this.icon = '';
-        this.description = '-';
-        this.temperature = '-';
+        this.iconUrl = '';
+        this.desc = '-';
+        this.temp = '-';
         this.feelsLike = '-';
         this.windSpeed = '-';
-        this.windDirection = '';
+        this.windDir = '';
     }
 
 }
 
-export class LongForecast {
+export class Forecast {
 
     constructor() {
-        this.name = '-';
-        this.hourly = []; // any
+        this.day = '-';
+        this.dayShort = '-';
+        this.date = '-';
+        this.iconUrl = '';
+        this.temp = '-';
+        this.desc = '-';
+        this.hourly = [];
     }
 
-}
-
-export class Nearby {
-
-    constructor() {
-        this.name = '-';
-        this.icon = '';
-        this.temperature = '-';
-    }
-    
 }
 
 export class Weather {
@@ -52,16 +41,14 @@ export class Weather {
     name = '-';
     country = '-';
     date = '-';
-    icon = '';
-    description = '-';
-    temperature = '-';
+    iconUrl = '';
+    desc = '-';
+    temp = '-';
     feelsLike = '-';
     sunrise = '-';
     sunset = '-';
-    daytimeLength = '-';
-
-    shortForecast = []; // 5
-    longForecast = []; // 5
-    nearbyPlaces = []; // 4
+    dayLength = '-';
+    forecast = [];
+    nearby = [];
 
 }

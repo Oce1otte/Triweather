@@ -11,6 +11,8 @@ export class Controller {
     this.#apiKey = '995f2b66e783fb11b10fb5cea5c732e8';
     this.#apiCurrentUrl = 'https://api.openweathermap.org/data/2.5/weather';
     this.#apiForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
+    this.#apiNearbyUrl = 'https://secure.geonames.org/findNearbyPlaceNameJSON?style=short&cities=cities15000&radius=300&maxRows=5&username=YehorMarichev';
+    this.#apiMediaUrl = 'http://openweathermap.org/img/w';
     this.#getParams = 'undefined';
     this.#validSearch = true;
     this.#parser = new Parser();
@@ -80,6 +82,8 @@ export class Controller {
   #apiKey;
   #apiCurrentUrl;
   #apiForecastUrl;
+  #apiNearbyUrl;
+  #apiMediaUrl;
   #getParams;
   #validSearch;
   #parser;
@@ -88,25 +92,18 @@ export class Controller {
     let currentWeather = $('#weather-current');
     let forecastWeather = $('#weather-forecast');
     let hourlyWeather = $('#weather-hourly');
-    let nearbyWeather = $('#weather-nearby');
     let searchError = $('#weather-notfound');
     let currentWeatherData, forecastWeatherData;
     
     this.#getParams = `?units=metric&${locationParam}&appid=${this.#apiKey}`;
     try {
       await $.getJSON(this.#apiCurrentUrl + this.#getParams, (currentData) => {
-        //
-        console.log(currentData);
-        //
         currentWeatherData = currentData;
         this.#validSearch = true;
       }).error(() => {
         this.#validSearch = false;
       });
       await $.getJSON(this.#apiForecastUrl + this.#getParams, (forecastData) => {
-        //
-        console.log(forecastData);
-        //
         forecastWeatherData = forecastData;
       }).error(() => {
         this.#validSearch = false;
@@ -114,13 +111,13 @@ export class Controller {
     } catch(e) {}
 
     if (this.#validSearch) {
-      this.#parser.dataTransit(currentWeatherData, forecastWeatherData);
+      this.#loadNearby(currentWeatherData.coord.lat, currentWeatherData.coord.lon);
+      this.#parser.dataTransit(currentWeatherData, forecastWeatherData, this.#apiMediaUrl);
       let model = this.#parser.getModel();
 
       $('#weather-current').html(CurrentWeatherRenderer.render(model));
       $('#weather-forecast').html(ForecastWeatherRenderer.render(model));
       $('#weather-hourly').html(HourlyWeatherRenderer.render(model));
-      $('#weather-nearby').html(NearbyWeatherRenderer.render(model));
       $('#search input').attr('placeholder', model.name + ', ' + model.country);
 
       searchError.fadeOut('fast');
@@ -129,7 +126,6 @@ export class Controller {
         hourlyWeather.show('drop', {direction: 'up'}, 'fast');
         forecastWeather.show('drop', {direction: 'up'}, 'fast');
       } else {
-        nearbyWeather.show('drop', {direction: 'up'}, 'fast');
         hourlyWeather.show('drop', {direction: 'up'}, 'fast');
         currentWeather.show('drop', {direction: 'up'}, 'fast');
       }
@@ -141,6 +137,30 @@ export class Controller {
       searchError.show('drop', {direction: 'down'}, 'fast');
     }
     return this.#validSearch;
+  }
+
+  async #loadNearby(latitude, longtitude) {
+    let nearbyWeather = $('#weather-nearby');
+    let nearbyWeatherData = [];
+    
+    try {
+      await $.getJSON(this.#apiNearbyUrl +`&lat=${latitude}&lng=${longtitude}`, (nearbyData) => {
+        nearbyWeatherData = nearbyData;
+        nearbyWeatherData.geonames.splice(0, 1);
+      }).error(() => {});
+      let temp = [];
+      for (let city of nearbyWeatherData.geonames)
+        await $.getJSON(this.#apiCurrentUrl + `?q=${city.name}&units=metric&appid=${this.#apiKey}`, (nearbyData) => {
+          temp.push(nearbyData);
+        }).error(() => {});
+      nearbyWeatherData = temp;
+    } catch(e) {}
+
+    this.#parser.dataTransitNearby(nearbyWeatherData, this.#apiMediaUrl);
+    let model = this.#parser.getModel();
+    $('#weather-nearby').html(NearbyWeatherRenderer.render(model));
+    if($('#forecast-tab').css('pointer-events') !== 'none')
+      nearbyWeather.show('drop', {direction: 'down'}, 'fast');
   }
 
 }
