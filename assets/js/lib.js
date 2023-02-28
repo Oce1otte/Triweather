@@ -92,7 +92,9 @@ export class Controller {
     let currentWeather = $('#weather-current');
     let forecastWeather = $('#weather-forecast');
     let hourlyWeather = $('#weather-hourly');
+    let nearbyWeather = $('#weather-nearby');
     let searchError = $('#weather-notfound');
+    let search = $('#search input');
     let currentWeatherData, forecastWeatherData;
     
     this.#getParams = `?units=metric&${locationParam}&appid=${this.#apiKey}`;
@@ -115,9 +117,9 @@ export class Controller {
       this.#parser.dataTransit(currentWeatherData, forecastWeatherData, this.#apiMediaUrl);
       let model = this.#parser.getModel();
 
-      $('#weather-current').html(CurrentWeatherRenderer.render(model));
-      $('#weather-forecast').html(ForecastWeatherRenderer.render(model));
-      $('#weather-hourly').html(HourlyWeatherRenderer.render(model));
+      currentWeather.html(CurrentWeatherRenderer.render(model));
+      forecastWeather.html(ForecastWeatherRenderer.render(model));
+      hourlyWeather.html(HourlyWeatherRenderer.render(model));
       $('#search input').attr('placeholder', model.name + ', ' + model.country);
 
       searchError.fadeOut('fast');
@@ -134,8 +136,10 @@ export class Controller {
       forecastWeather.hide('drop', {direction: 'up'}, 'fast');
       hourlyWeather.hide('drop', {direction: 'up'}, 'fast');
       nearbyWeather.hide('drop', {direction: 'up'}, 'fast');
+      $('#weather-notfound > h3').html(`"${search.val()}" could not be found`);
       searchError.show('drop', {direction: 'down'}, 'fast');
     }
+    search.val('');
     return this.#validSearch;
   }
 
@@ -158,7 +162,7 @@ export class Controller {
 
     this.#parser.dataTransitNearby(nearbyWeatherData, this.#apiMediaUrl);
     let model = this.#parser.getModel();
-    $('#weather-nearby').html(NearbyWeatherRenderer.render(model));
+    nearbyWeather.html(NearbyWeatherRenderer.render(model));
     if($('#forecast-tab').css('pointer-events') !== 'none')
       nearbyWeather.show('drop', {direction: 'down'}, 'fast');
   }

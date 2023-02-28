@@ -73,8 +73,7 @@ $('#search').on('submit', (event) => {
     event.preventDefault();
     if (search.val()) {
       search.attr('placeholder', 'Search');
-      controller.getDataByCity(search.val());
-      search.val(''); 
+      controller.getDataByCity(search.val()); 
       logo.css('transform', 'rotate(540deg)');
       setTimeout(function() {
         logo.css('transform', 'rotate(0deg)');
