@@ -35,7 +35,7 @@ export class Parser {
 
     // Forecast:
     model.forecast = [];
-    let forecastDayEnd = Math.floor(new Date(new Date(currentData.dt * 1000).toLocaleDateString()).getTime() / 1000);
+    let forecastDayEnd = Date.parse(new Date(currentData.dt * 1000).toLocaleDateString('en-US')) / 1000;
     let todayForecastName = currentData.dt < (forecastDayEnd + 64800) ? 'TODAY' : 'TONIGHT';
     let n, i = -1;
     for (let hour of forecastData.list) {
