@@ -20,6 +20,7 @@ $(document).ready(() => {
   let day4Form = $('#day-4-form');
   let day5Form = $('#day-5-form');
 
+
   // 1:
   $('footer').fadeIn('slow');
   $('footer > div').show('drop', {direction: 'down'}, 'slow');
