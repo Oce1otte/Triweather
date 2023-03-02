@@ -70,6 +70,26 @@ export class Controller {
     }
   }
 
+  setForecastDay(index) {
+    if(1 <= index && index <= 5) {
+      console.log('ff');
+
+      for (let i = 1; i <= 5; i++) {
+        if (i !== index ) {
+          console.log(`#day-${i}-form`);
+          $(`#day-${i}-form`).css({
+            'display': 'none'
+          });
+        }
+      }
+      console.log(`#day-${index}-form`);
+      $(`#day-${index}-form`).css({
+        'display': 'block'
+      });
+    }
+    console.log($('#weather-hourly').html());
+  }
+
   getDataByCity(name) {
     this.#getData('q=' + name);
   }
@@ -118,8 +138,12 @@ export class Controller {
       let model = this.#parser.getModel();
 
       currentWeather.html(CurrentWeatherRenderer.render(model));
-      forecastWeather.html(ForecastWeatherRenderer.render(model));
+      //forecastWeather.html(ForecastWeatherRenderer.render(model));
+      console.log('1');
+      console.log(hourlyWeather.html());
       hourlyWeather.html(HourlyWeatherRenderer.render(model));
+      console.log('2');
+      console.log(hourlyWeather.html());
       $('#search input').attr('placeholder', model.name + ', ' + model.country);
 
       searchError.fadeOut('fast');
@@ -140,6 +164,7 @@ export class Controller {
       searchError.show('drop', {direction: 'down'}, 'fast');
     }
     search.val('');
+    this.setForecastDay(4);
     return this.#validSearch;
   }
 
