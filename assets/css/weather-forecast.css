@@ -1,4 +1,7 @@
 #weather-forecast {
-    background-color: rgb(50, 51, 59);
     display: none;
+}
+#weather-forecast > button {
+    background-color: rgb(68, 143, 255);
+    border-radius: 0;
 }
