@@ -1,6 +1,3 @@
-import { Weather } from './models.js';
-
-
 export class CurrentWeatherRenderer {
   
   static render(model) {
