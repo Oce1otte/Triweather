@@ -9,17 +9,7 @@ $(document).ready(() => {
   //->
   let logo = $('#heading > div > img');
   let search = $('#search input');
-  let day1Button = $('#day-1-btn');
-  let day2Button = $('#day-2-btn');
-  let day3Button = $('#day-3-btn');
-  let day4Button = $('#day-4-btn');
-  let day5Button = $('#day-5-btn');
-  let day1Form = $('#day-1-form');
-  let day2Form = $('#day-2-form');
-  let day3Form = $('#day-3-form');
-  let day4Form = $('#day-4-form');
-  let day5Form = $('#day-5-form');
-
+  let forecastWeather = $('#weather-forecast');
 
   // 1:
   $('footer').fadeIn('slow');
@@ -47,36 +37,39 @@ $(document).ready(() => {
   );
 
   // 4:
-  day1Button.click(() => {
-    day1Button.css({
-      'pointer-events': 'none'
-    });
+  forecastWeather.on('click', '#day-1-btn', () => {
+    controller.setForecastDay(1);
   });
 
-  day2Button.click(() => {
-    
+  forecastWeather.on('click', '#day-2-btn', () => {
+    controller.setForecastDay(2);
   });
 
-  day3Button.click(() => {
-    
+  forecastWeather.on('click', '#day-3-btn', () => {
+    controller.setForecastDay(3);
   });
 
-  day4Button.click(() => {
-    
+  forecastWeather.on('click', '#day-4-btn', () => {
+    controller.setForecastDay(4);
   });
 
-  day5Button.click(() => {
-    
+  forecastWeather.on('click', '#day-5-btn', () => {
+    controller.setForecastDay(5);
   });
 
   // 5:
 $('#search').on('submit', (event) => {
     event.preventDefault();
     if (search.val()) {
+      search.prop('disabled', true);
+      setTimeout(() => {
+        search.prop('disabled', false);
+        search.focus();
+      }, 350);
       search.attr('placeholder', 'Search');
-      controller.getDataByCity(search.val()); 
+      controller.getDataByCity(search.val());
       logo.css('transform', 'rotate(540deg)');
-      setTimeout(function() {
+      setTimeout(() => {
         logo.css('transform', 'rotate(0deg)');
       }, 3000);
     }
@@ -84,7 +77,7 @@ $('#search').on('submit', (event) => {
 
   //->
   controller.getDataByCity('Kyiv');
-  
+
   //->
   if (navigator.geolocation)
     navigator.geolocation.getCurrentPosition(
@@ -92,5 +85,4 @@ $('#search').on('submit', (event) => {
         controller.getDataByCoordinates(position.coords.latitude, position.coords.longitude);
       } 
     );
-
 });

@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(101, 112, 126);
+  background-color: rgb(31, 32, 37);
 }
 #heading {
   background-color: rgb(35, 38, 46);
@@ -73,14 +73,18 @@ body {
   border-bottom: 2px solid transparent;
 }
 #display > div {
-  border: 2px solid rgb(80, 90, 100);
-  outline: rgb(70, 77, 87) solid 1px;
-  box-shadow: 0px 0px 5px #bec9d1
+  border: 2px solid rgb(37, 39, 46);
+  outline: rgb(36, 38, 44) solid 1px;
+  box-shadow: 0px 3px 3px #2f323b
 }
-#weather-hourly > div {
-  /*display: none;*/
+#weather-forecast {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 #weather-notfound {
+  margin: 0 12.5%;
+  width: 75%;
   min-width: 169px;
   background-color: rgb(50, 51, 59);
   display: none;

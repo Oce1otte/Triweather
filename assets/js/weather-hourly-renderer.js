@@ -1,6 +1,3 @@
-import { Weather } from './models.js';
-
-
 export class HourlyWeatherRenderer {
   
   static render(model) {
@@ -8,7 +5,7 @@ export class HourlyWeatherRenderer {
     for (let i = 0; i < 5 ; i++) {
       html += `
         <div id="day-${i + 1}-form" class="text-white">
-          Index ${i} -> day ${i + 1}
+          Day ${i + 1}
         </div>
       `
     }

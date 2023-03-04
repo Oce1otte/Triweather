@@ -4,6 +4,17 @@ import { ForecastWeatherRenderer } from "./weather-forecast-renderer.js";
 import { HourlyWeatherRenderer } from "./weather-hourly-renderer.js";
 import { NearbyWeatherRenderer } from "./weather-nearby-renderer.js";
 
+let todayTab = $('#today-tab');
+let forecastTab = $('#forecast-tab');
+let footer = $('footer');
+let footerContent = $('footer > div');
+let currentWeather = $('#weather-current');
+let forecastWeather = $('#weather-forecast');
+let hourlyWeather = $('#weather-hourly');
+let nearbyWeather = $('#weather-nearby');
+let searchError = $('#weather-notfound');
+let search = $('#search input');
+
 export class Controller {
 
   // public:
@@ -12,82 +23,59 @@ export class Controller {
     this.#apiCurrentUrl = 'https://api.openweathermap.org/data/2.5/weather';
     this.#apiForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
     this.#apiNearbyUrl = 'https://secure.geonames.org/findNearbyPlaceNameJSON?style=short&cities=cities15000&radius=300&maxRows=5&username=Triweather';
-    this.#apiMediaUrl = 'http://openweathermap.org/img/w';
+    this.#apiMediaUrl = 'https://openweathermap.org/img/w';
     this.#getParams = 'undefined';
     this.#validSearch = true;
     this.#parser = new Parser();
   }
 
+  setForecastDay(index) {
+    if (index < 1 || index > 5)
+      index = 1;
+    for (let i = 1; i <= 5; i++)
+      if (i !== index ) {
+        $(`#day-${i}-btn`).css({
+          'background-color': 'white'
+        });
+        $(`#day-${i}-form`).css({
+          'display': 'none'
+        });
+      }
+    $(`#day-${index}-btn`).css({
+      'background-color': 'gray'
+    });
+    $(`#day-${index}-form`).css({
+      'display': 'block'
+    });
+  }
+
   switchTab() {
-    let todayTab = $('#today-tab');
-    let forecastTab = $('#forecast-tab');
-    let footer = $('footer');
-    let footerContent = $('footer > div');
-    let currentWeather = $('#weather-current');
-    let forecastWeather = $('#weather-forecast');
-    let nearbyWeather = $('#weather-nearby');
-
-    function toggleOn(button) {
-      button.css({
-        'pointer-events': 'none',
-        'border-left-color': 'rgb(90, 88, 94)',
-        'border-right-color': 'rgb(90, 88, 94)',
-        'border-bottom-color': 'rgb(235, 77, 103)',
-      });
-    }
-
-    function toggleOff(button) {
-      button.css({
-        'pointer-events': 'auto',
-        'border-left-color': 'transparent',
-        'border-right-color': 'transparent',
-        'border-bottom-color': 'transparent'
-      });
-    }
-
     if (forecastTab.css('pointer-events') === 'none') {
-      toggleOff(forecastTab);
-      toggleOn(todayTab);
+      this.#toggleOff(forecastTab);
+      this.#toggleOn(todayTab);
       document.title = 'Triweather - Today';
+      if (this.#validSearch) {
+        forecastWeather.hide('drop', {direction: 'left'}, 'fast').promise().done(() => {
+          currentWeather.show('drop', {direction: 'left'}, 'fast');
+        });
+        nearbyWeather.show('drop', {direction: 'down'}, 'fast');
+      }
       footer.fadeIn('fast');
       footerContent.show('drop', {direction: 'down'}, 'fast');
-      if (this.#validSearch) {
-        forecastWeather.hide('drop', {direction: 'right'}, 'fast');
-        currentWeather.show('drop', {direction: 'left'}, 'fast');
-        nearbyWeather.show('drop', {direction: 'left'}, 'fast');
-      }
     } else {
-      toggleOff(todayTab);
-      toggleOn(forecastTab);
+      this.#toggleOff(todayTab);
+      this.#toggleOn(forecastTab);
       document.title = 'Triweather - 5-day forecast';
       footerContent.hide('drop', {direction: 'down'}, 'fast');
       footer.fadeOut('fast');
       if (this.#validSearch) {
-        currentWeather.hide('drop', {direction: 'left'}, 'fast');
-        nearbyWeather.hide('drop', {direction: 'left'}, 'fast');
-        forecastWeather.show('drop', {direction: 'right'}, 'fast');
+        nearbyWeather.hide('drop', {direction: 'down'}, 'fast');
+        currentWeather.hide('drop', {direction: 'left'}, 'fast').promise().done(() => {
+          forecastWeather.show('drop', {direction: 'left'}, 'fast');
+        });
       }
     }
-  }
-
-  setForecastDay(index) {
-    if(1 <= index && index <= 5) {
-      console.log('ff');
-
-      for (let i = 1; i <= 5; i++) {
-        if (i !== index ) {
-          console.log(`#day-${i}-form`);
-          $(`#day-${i}-form`).css({
-            'display': 'none'
-          });
-        }
-      }
-      console.log(`#day-${index}-form`);
-      $(`#day-${index}-form`).css({
-        'display': 'block'
-      });
-    }
-    console.log($('#weather-hourly').html());
+    this.setForecastDay(1);
   }
 
   getDataByCity(name) {
@@ -108,15 +96,27 @@ export class Controller {
   #validSearch;
   #parser;
 
+  #toggleOn(button) {
+    button.css({
+      'pointer-events': 'none',
+      'border-left-color': 'rgb(90, 88, 94)',
+      'border-right-color': 'rgb(90, 88, 94)',
+      'border-bottom-color': 'rgb(235, 77, 103)',
+    });
+  }
+
+  #toggleOff(button) {
+    button.css({
+      'pointer-events': 'auto',
+      'border-left-color': 'transparent',
+      'border-right-color': 'transparent',
+      'border-bottom-color': 'transparent'
+    });
+  }
+
   async #getData(locationParam) {
-    let currentWeather = $('#weather-current');
-    let forecastWeather = $('#weather-forecast');
-    let hourlyWeather = $('#weather-hourly');
-    let nearbyWeather = $('#weather-nearby');
-    let searchError = $('#weather-notfound');
-    let search = $('#search input');
+    let wasValid = this.#validSearch;
     let currentWeatherData, forecastWeatherData;
-    
     this.#getParams = `?units=metric&${locationParam}&appid=${this.#apiKey}`;
     try {
       await $.getJSON(this.#apiCurrentUrl + this.#getParams, (currentData) => {
@@ -131,47 +131,47 @@ export class Controller {
         this.#validSearch = false;
       });
     } catch(e) {}
-
     if (this.#validSearch) {
-      this.#loadNearby(currentWeatherData.coord.lat, currentWeatherData.coord.lon);
-      this.#parser.dataTransit(currentWeatherData, forecastWeatherData, this.#apiMediaUrl);
-      let model = this.#parser.getModel();
-
-      currentWeather.html(CurrentWeatherRenderer.render(model));
-      //forecastWeather.html(ForecastWeatherRenderer.render(model));
-      console.log('1');
-      console.log(hourlyWeather.html());
-      hourlyWeather.html(HourlyWeatherRenderer.render(model));
-      console.log('2');
-      console.log(hourlyWeather.html());
-      $('#search input').attr('placeholder', model.name + ', ' + model.country);
-
-      searchError.fadeOut('fast');
-      if($('#forecast-tab').css('pointer-events') === 'none')
-      {
-        hourlyWeather.show('drop', {direction: 'up'}, 'fast');
-        forecastWeather.show('drop', {direction: 'up'}, 'fast');
-      } else {
-        hourlyWeather.show('drop', {direction: 'up'}, 'fast');
-        currentWeather.show('drop', {direction: 'up'}, 'fast');
-      }
+      searchError.hide('drop', {direction: 'down'}, 'fast').promise().done(() => {
+        this.#loadNearby(currentWeatherData.coord.lat, currentWeatherData.coord.lon);
+        this.#parser.dataTransit(currentWeatherData, forecastWeatherData, this.#apiMediaUrl);
+        let model = this.#parser.getModel();
+        currentWeather.html(CurrentWeatherRenderer.render(model));
+        forecastWeather.html(ForecastWeatherRenderer.render(model));
+        hourlyWeather.html(HourlyWeatherRenderer.render(model));
+        search.attr('placeholder', model.name + ', ' + model.country);
+        this.setForecastDay(1);
+        if(todayTab.css('pointer-events') === 'none') {
+          hourlyWeather.fadeIn('fast');
+          currentWeather.show('drop', {direction: 'left'}, 'fast');
+        } else {
+          hourlyWeather.fadeIn('fast');
+          forecastWeather.show('drop', {direction: 'left'}, 'fast');
+        }
+      });
     } else {
-      currentWeather.hide('drop', {direction: 'up'}, 'fast');
-      forecastWeather.hide('drop', {direction: 'up'}, 'fast');
-      hourlyWeather.hide('drop', {direction: 'up'}, 'fast');
-      nearbyWeather.hide('drop', {direction: 'up'}, 'fast');
       $('#weather-notfound > h3').html(`"${search.val()}" could not be found`);
-      searchError.show('drop', {direction: 'down'}, 'fast');
+      if (wasValid) {
+        if(todayTab.css('pointer-events') === 'none') {
+          currentWeather.fadeOut('fast');
+          hourlyWeather.fadeOut('fast');
+          nearbyWeather.hide('drop', {direction: 'up'}, 'fast').promise().done(() => {
+            searchError.show('drop', {direction: 'down'}, 'fast');
+          });
+        } else {
+          forecastWeather.fadeOut('fast');
+          hourlyWeather.fadeOut('fast').promise().done(() => {
+            searchError.show('drop', {direction: 'down'}, 'fast');
+          });
+        }
+      }
     }
     search.val('');
-    this.setForecastDay(4);
     return this.#validSearch;
   }
 
   async #loadNearby(latitude, longtitude) {
-    let nearbyWeather = $('#weather-nearby');
     let nearbyWeatherData = [];
-    
     try {
       await $.getJSON(this.#apiNearbyUrl +`&lat=${latitude}&lng=${longtitude}`, (nearbyData) => {
         nearbyWeatherData = nearbyData;
@@ -184,11 +184,9 @@ export class Controller {
         }).error(() => {});
       nearbyWeatherData = temp;
     } catch(e) {}
-
     this.#parser.dataTransitNearby(nearbyWeatherData, this.#apiMediaUrl);
-    let model = this.#parser.getModel();
-    nearbyWeather.html(NearbyWeatherRenderer.render(model));
-    if($('#forecast-tab').css('pointer-events') !== 'none')
+    nearbyWeather.html(NearbyWeatherRenderer.render(this.#parser.getModel()));
+    if(todayTab.css('pointer-events') === 'none')
       nearbyWeather.show('drop', {direction: 'down'}, 'fast');
   }
 
