@@ -1,7 +1,39 @@
 #weather-forecast {
-    display: none;
+    box-shadow: none !important;
 }
-#weather-forecast > button {
-    background-color: rgb(68, 143, 255);
+#weather-forecast > div {
+    min-width: 70px;
     border-radius: 0;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+#weather-forecast-inner {
+    padding: 4px 2px;
+    color: rgb(218, 218, 218);
+}
+#weather-forecast-inner > h4 {
+    font: bold 15px 'Trebuchet MS';
+}
+#weather-forecast-inner > h6 {
+    margin-top: -15px;
+    font-size: 10px;
+}
+#weather-forecast-inner > img {
+    width: 64px;
+    height: 64px;
+    margin-top: -13px;
+}
+#weather-forecast-inner > h5 {
+    margin-top: -11px;
+    font: bold 15px 'Trebuchet MS';
+    color: rgb(223, 215, 193);
+}
+#weather-forecast-inner > p {
+    margin-top: -2px;
+    margin-bottom: 4px; 
+    font: 10px 'Consolas';
+}
+#day-5-btn {
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
 }
