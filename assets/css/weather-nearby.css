@@ -1,4 +1,19 @@
 #weather-nearby {
-    background-color: rgb(37, 40, 48);
+    background-color: rgb(50, 51, 59);
     display: none;
+}
+
+#parent {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#town {
+    border: 1px solid rgb(190, 190, 190);
+    outline: 2px ridge rgba(190, 190, 190);
+}
+
+.child {
+    display: inline-block;
 }
