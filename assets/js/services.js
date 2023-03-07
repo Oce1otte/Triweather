@@ -46,7 +46,7 @@ export class Parser {
         let day = new Date(forecastDayEnd * 1000);
         model.forecast[i].day = dayNames[day.getDay()];
         model.forecast[i].dayShort = dayShortNames[day.getDay()];
-        model.forecast[i].date = `${monthNames[day.getMonth()]} ${("0" + day.getDate()).slice(-2)}`;
+        model.forecast[i].date = `${monthNames[day.getMonth()]}&nbsp${("0" + day.getDate()).slice(-2)}`;
         forecastDayEnd += 86400;
       }
       model.forecast[i].hourly.push(new Hourly());

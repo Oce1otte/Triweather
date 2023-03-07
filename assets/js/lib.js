@@ -23,7 +23,7 @@ export class Controller {
     this.#apiCurrentUrl = 'https://api.openweathermap.org/data/2.5/weather';
     this.#apiForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
     this.#apiNearbyUrl = 'https://secure.geonames.org/findNearbyPlaceNameJSON?style=short&cities=cities15000&radius=300&maxRows=5&username=Triweather';
-    this.#apiMediaUrl = 'https://openweathermap.org/img/w';
+    this.#apiMediaUrl = 'https://openweathermap.org/img/wn';
     this.#getParams = 'undefined';
     this.#validSearch = true;
     this.#parser = new Parser();
@@ -35,18 +35,16 @@ export class Controller {
     for (let i = 1; i <= 5; i++)
       if (i !== index ) {
         $(`#day-${i}-btn`).css({
-          'background-color': 'white'
+          'pointer-events': 'auto',
+          'background-color': 'rgb(48, 58, 77)'
         });
-        $(`#day-${i}-form`).css({
-          'display': 'none'
-        });
+        $(`#day-${i}-form`).css('display', 'none');
       }
     $(`#day-${index}-btn`).css({
-      'background-color': 'gray'
+      'pointer-events': 'none',
+      'background-color': 'rgb(80, 96, 128)'
     });
-    $(`#day-${index}-form`).css({
-      'display': 'block'
-    });
+    $(`#day-${index}-form`).css('display', 'block');
   }
 
   switchTab() {
@@ -71,7 +69,9 @@ export class Controller {
       if (this.#validSearch) {
         nearbyWeather.hide('drop', {direction: 'down'}, 'fast');
         currentWeather.hide('drop', {direction: 'left'}, 'fast').promise().done(() => {
-          forecastWeather.show('drop', {direction: 'left'}, 'fast');
+          forecastWeather.show('drop', {direction: 'left'}, 'fast').promise().done(() => {
+            forecastWeather.css('display', 'flex');
+          });
         });
       }
     }
