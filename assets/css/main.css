@@ -1,4 +1,5 @@
 body {
+  min-width: 150px;
   background-color: rgb(31, 32, 37);
 }
 #heading {
@@ -75,19 +76,17 @@ body {
 #display > div {
   border: 2px solid rgb(37, 39, 46);
   outline: rgb(36, 38, 44) solid 1px;
-  box-shadow: 0px 3px 3px #2f323b
-}
-#weather-forecast {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+  box-shadow: 0px 3px 3px #2f323b;
+  border-radius: .25rem;
+  overflow: hidden;
+  display: none;
 }
 #weather-notfound {
   margin: 0 12.5%;
   width: 75%;
   min-width: 169px;
   background-color: rgb(50, 51, 59);
-  display: none;
+  border-radius: 0 !important;
 }
 #weather-notfound > img {
   width: 10%;
