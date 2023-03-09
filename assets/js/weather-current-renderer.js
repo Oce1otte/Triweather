@@ -2,27 +2,28 @@ export class CurrentWeatherRenderer {
   
   static render(model) {
     let html = `
-    <div id = "parent" class = "row">
-      <div class = "col-sm-8 container" id = "desc" style = "color: white">
-        <h5 style = "color:rgb(200, 50, 50); font-family: Georgia, 'Times New Roman', Times, serif">CURRENT WEATHER</h5>
+      <h2 class="ms-sm-1 mb-4 mb-sm-0 text-start">CURRENT&nbspWEATHER</h2>
+      <h5 class="mb-sm-4 text-start text-sm-end">${model.date}</h5>
+      <div id="weather-current-icon" class="me-1 me-sm-4 me-md-5 me-lg-2 me-xl-4 ms-sm-5 ms-lg-4 float-end float-sm-none d-sm-inline-block">
+        <img src="${model.iconUrl}" alt="..."></img>
+        <h3 class="mb-0">${model.desc}</h3>
       </div>
-      <div class = "col-4" id = "dayInf">
-        <h5 style = "color: rgb(200, 50, 50); font-family: Georgia, 'Times New Roman', Times, serif">${model.date}</h5>
+      <div id="weather-current-temp" class="mx-auto me-md-5 me-lg-0 ms-sm-5 overflow-hidden d-sm-inline-block">
+        <h1 class="mb-0">${model.temp}°C</h1>
+        <h6 class="mb-0">Feels&nbsplike&nbsp<font size="2" face="Trebuchet MS">${model.feelsLike}°C</font></h6>
       </div>
-    </div>
-      <div id = "parent" class = "row">
-        <div class = "col-3 container">
-          <img src="${model.iconUrl}"></img>
-          <h6 style = "color: rgb(243, 243, 243);">${model.desc}</h6>
+      <div id="weather-current-stat" class="mt-4 mt-sm-0 mt-lg-4 mx-auto ms-sm-5 mx-lg-auto d-sm-inline-block d-lg-block">
+        <div>
+          <h5>Sunrise:</h5>
+          <h4>${model.sunrise}</h4>
         </div>
-        <div class = "col-8 col-sm-4" id = "tmp" >
-          <h1 style = "color: rgb(243, 243, 243);">${model.temp}°C</h1>
-          <h6 style = "color:rgb(172, 165, 167);">Feels like: ${model.feelsLike}°C</h6>
+        <div>
+          <h5>Sunset:</h5>
+          <h4>${model.sunset}</h4>
         </div>
-        <div class = "col-4" id = "dayInf">
-          <h6 style = "color: rgb(243, 243, 243);">Sunrise: ${model.sunrise}</h6>
-          <h6 style = "color: rgb(243, 243, 243);">Sunset: ${model.sunset}</h6>
-          <h6 style = "color: rgb(243, 243, 243);">Duration: ${model.dayLength}</h6>
+        <div>
+          <h5>Duration:</h5> 
+          <h4>${model.dayLength}&nbsphr</h4>
         </div>
       </div>
     `;
