@@ -27,8 +27,8 @@ export class Parser {
     model.date = new Date(currentData.dt * 1000).toLocaleDateString('ru-RU');
     model.iconUrl = mediaUrl + `/${currentData.weather[0].icon}.png`
     model.desc = currentData.weather[0].main;
-    model.temp = currentData.main.temp;
-    model.feelsLike = currentData.main.feels_like;
+    model.temp = Math.round(currentData.main.temp);
+    model.feelsLike = Math.round(currentData.main.feels_like);
     model.sunrise = new Date(currentData.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     model.sunset = new Date(currentData.sys.sunset  * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     model.dayLength = `${duration.getHours()}:${duration.getMinutes()}`;
@@ -54,13 +54,13 @@ export class Parser {
       modelHour.time = new Date(hour.dt * 1000).toLocaleTimeString('en-US', {hour: 'numeric'});
       modelHour.iconUrl = mediaUrl + `/${hour.weather[0].icon}.png`;
       modelHour.desc = hour.weather[0].main;  
-      modelHour.temp = hour.main.temp;
-      modelHour.feelsLike = hour.main.feels_like;  
+      modelHour.temp = Math.round(hour.main.temp);
+      modelHour.feelsLike = Math.round(hour.main.feels_like);  
       modelHour.windSpeed = Math.ceil(hour.wind.speed);
       modelHour.windDir = directionNames[Math.floor((hour.wind.deg / 22.5) + 0.5) % 16];
       if (modelHour.time === model.forecast[0].hourly[0].time) {
         model.forecast[i].iconUrl = modelHour.iconUrl;
-        model.forecast[i].temp = modelHour.temp;
+        model.forecast[i].temp = Math.round(modelHour.temp);
         model.forecast[i].desc = hour.weather[0].description;
       }
       n++;
@@ -79,7 +79,7 @@ export class Parser {
       model.nearby.push(new Nearby());
       model.nearby[i].name = city.name;
       model.nearby[i].iconUrl =  mediaUrl + `/${city.weather[0].icon}.png`;
-      model.nearby[i].temp = city.main.temp;
+      model.nearby[i].temp = Math.round(city.main.temp);
       i++;
     }
     console.log(this.#model);

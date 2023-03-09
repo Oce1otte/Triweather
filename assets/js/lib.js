@@ -23,7 +23,7 @@ export class Controller {
     this.#apiCurrentUrl = 'https://api.openweathermap.org/data/2.5/weather';
     this.#apiForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
     this.#apiNearbyUrl = 'https://secure.geonames.org/findNearbyPlaceNameJSON?style=short&cities=cities15000&radius=300&maxRows=5&username=Triweather';
-    this.#apiMediaUrl = 'https://openweathermap.org/img/wn';
+    this.#mediaUrl = 'assets/img/weather_icons';
     this.#getParams = 'undefined';
     this.#validSearch = true;
     this.#parser = new Parser();
@@ -54,9 +54,11 @@ export class Controller {
       document.title = 'Triweather - Today';
       if (this.#validSearch) {
         forecastWeather.hide('drop', {direction: 'left'}, 'fast').promise().done(() => {
-          currentWeather.show('drop', {direction: 'left'}, 'fast');
+          currentWeather.show('drop', {direction: 'left'}, 'fast').promise().done(() => {
+            nearbyWeather.show('drop', {direction: 'down'}, 'fast');
+          });
         });
-        nearbyWeather.show('drop', {direction: 'down'}, 'fast');
+       
       }
       footer.fadeIn('fast');
       footerContent.show('drop', {direction: 'down'}, 'fast');
@@ -91,7 +93,7 @@ export class Controller {
   #apiCurrentUrl;
   #apiForecastUrl;
   #apiNearbyUrl;
-  #apiMediaUrl;
+  #mediaUrl;
   #getParams;
   #validSearch;
   #parser;
@@ -134,7 +136,7 @@ export class Controller {
     if (this.#validSearch) {
       searchError.hide('drop', {direction: 'down'}, 'fast').promise().done(() => {
         this.#loadNearby(currentWeatherData.coord.lat, currentWeatherData.coord.lon);
-        this.#parser.dataTransit(currentWeatherData, forecastWeatherData, this.#apiMediaUrl);
+        this.#parser.dataTransit(currentWeatherData, forecastWeatherData, this.#mediaUrl);
         let model = this.#parser.getModel();
         currentWeather.html(CurrentWeatherRenderer.render(model));
         forecastWeather.html(ForecastWeatherRenderer.render(model));
@@ -184,7 +186,7 @@ export class Controller {
         }).error(() => {});
       nearbyWeatherData = temp;
     } catch(e) {}
-    this.#parser.dataTransitNearby(nearbyWeatherData, this.#apiMediaUrl);
+    this.#parser.dataTransitNearby(nearbyWeatherData, this.#mediaUrl);
     nearbyWeather.html(NearbyWeatherRenderer.render(this.#parser.getModel()));
     if(todayTab.css('pointer-events') === 'none')
       nearbyWeather.show('drop', {direction: 'down'}, 'fast');
