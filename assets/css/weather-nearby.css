@@ -1,19 +1,35 @@
 #weather-nearby {
+    padding: 12px 18px;
     background-color: rgb(50, 51, 59);
-    display: none;
 }
-
-#parent {
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
+#weather-nearby > h4 {
+    margin-bottom: 12px;
+    font: bold 14px 'Trebuchet MS';
+    color: rgb(214, 210, 207);
+    text-shadow: 0px 2px 0 rgb(64, 72, 82);
 }
-
-#town {
-    border: 1px solid rgb(190, 190, 190);
-    outline: 2px ridge rgba(190, 190, 190);
+.weather-nearby-city {
+    margin-bottom: 10px; 
+    border: 2px solid rgb(64, 66, 75);
+    outline: 1px solid rgb(59, 53, 53); 
+    background-color: rgb(61, 75, 104);
 }
-
-.child {
-    display: inline-block;
+.weather-nearby-city > h5 {
+    width: 68px;
+    margin-top: 5px;
+    margin-left: -4px;
+    font-size: 15px;
+    color: rgb(107, 128, 153);
+    text-shadow: 0px 1px 0 rgb(83, 98, 129);
+} 
+.weather-nearby-city > img {
+    width: 64px; 
+    margin-top: -8px;
+    margin-bottom: -6px;
+} 
+.weather-nearby-city > h6 {
+    margin-right: 25px;
+    font: bold 21px 'Trebuchet MS';
+    color: rgb(223, 215, 193);
+    text-shadow: 2px 1px 4px rgb(54, 48, 43);
 }

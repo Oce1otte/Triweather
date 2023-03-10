@@ -74,8 +74,8 @@ body {
   border-bottom: 2px solid transparent;
 }
 #display > div {
-  border: 2px solid rgb(37, 39, 46);
-  outline: rgb(36, 38, 44) solid 1px;
+  border: 2px solid rgb(39, 42, 49);
+  outline: 1px solid rgb(36, 38, 44);
   box-shadow: 0px 3px 3px #2f323b;
   border-radius: .25rem;
   overflow: hidden;
