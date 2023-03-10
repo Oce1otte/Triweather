@@ -1,5 +1,17 @@
 #weather-forecast {
+    max-height: 322px;
     box-shadow: none !important;
+    border-top: 3px solid rgb(50, 46, 56) !important;
+    border-right: none;
+    border-bottom: 4px solid rgb(50, 46, 56) !important;
+}
+#weather-forecast::-webkit-scrollbar {
+    width: 4px;
+    background-color: rgb(39, 42, 49);
+}
+#weather-forecast::-webkit-scrollbar-thumb {
+    border: 1px solid rgb(170, 91, 104);
+    background-color: rgb(192, 116, 128);
 }
 #weather-forecast > div {
     min-width: 70px;
