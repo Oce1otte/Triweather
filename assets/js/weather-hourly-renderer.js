@@ -1,88 +1,63 @@
 export class HourlyWeatherRenderer {
   
   static render(model) {
-    let html = '';
-
-    html += `
-      <div>
-        <h2 style = "color:rgb(200, 50, 50); font-family: Georgia, 'Times New Roman', Times, serif">HOURLY</h2>
-      </div>
-    `
-
-    // Information Table
-    {
-      for (let j = 0; j < 5 ; j++) 
-      {  
-        html += `
-          <table id = "day-${j + 1}-form">
-            <tr>
-              <td>
-                ${model.forecast[j].day}
-              </td>
-          `
-
-        for(let i = 0; i < model.forecast[j].hourly.length; i++)
-        {
-          html += `
-          <td>
-            ${model.forecast[j].hourly[i].time}
-          </td>
-          `
-        }
-
-        console.log(html);
-
-
-        html += `
-              </tr>
-              <tr>
-              <td>Forecast</td>
-        `
-        for(let i = 0; i < model.forecast[j].hourly.length; i++)
-        {
-          html += `<td>${model.forecast[j].hourly[i].desc}</td>`
-        }
-
-        html += `
-              </tr>
-              <tr>
-              <td>Temp°C</td>
-        `
-
-        for(let i = 0; i < model.forecast[j].hourly.length; i++)
-        {
-          html += `<td>${model.forecast[j].hourly[i].temp}</td>`
-        }
-
-        html += `
-              </tr>
-              <tr>
-              <td>RealFeel</td>
-        `
-
-        for(let i = 0; i < model.forecast[j].hourly.length; i++)
-        {
-          html += `<td>${model.forecast[j].hourly[i].feelsLike}</td>`
-        }
-
-        html += `
-              </tr>
-              <tr>
-              <td>Wind (km/h)</td>
-        `
-
-        for(let i = 0; i < model.forecast[j].hourly.length; i++)
-        {
-          html += `<td>${model.forecast[j].hourly[i].windSpeed} ${model.forecast[j].hourly[i].windDir}</td>`
-        }
-
-        html += `
-            </tr>
-          </table>
-        `
+    let html = `
+      <h4 class="mb-2 ms-2">HOURLY</h4>
+      <hr/>
+    `;
+    for (let i = 0; i < 5; i++) {
+      let time_cells = '';
+      let icon_cells = '';
+      let desc_cells = ''; 
+      let temp_cells = ''; 
+      let feelsLike_cells = '';
+      let wind_cells = '';
+      let padder = `<td class="p-0"><div style="width: ${(8 - model.forecast[i].hourly.length) * 78 + 13}px"></div></td>`;
+      for (let hour of model.forecast[i].hourly) {
+        time_cells += `<td>${hour.time}</td>`;
+        icon_cells += `<td class="text-center"><img src="${hour.iconUrl}" alt="..."></img></td>`;
+        desc_cells += `<td>${hour.desc}</td>`;
+        temp_cells += `<td>${hour.temp}°</td>`;
+        feelsLike_cells += `<td>${hour.feelsLike}°</td>`;
+        wind_cells += `<td>${hour.windSpd} ${hour.windDir}</td>`;
       }
+      html += `
+        <table id="day-${i + 1}-table" class="weather-hourly-table text-center text-nowrap overflow-x-scroll">
+          <tbody>
+            <tr class="no-bottom-border">
+              <td><h5>${model.forecast[i].day}</h5></td>
+              ${time_cells}
+              ${padder}
+            </tr>
+            <tr class="no-bottom-border">
+              <td></td>
+              ${icon_cells}
+              ${padder}
+            </tr>
+            <tr>
+              <td><h6>Forecast</h6></td>
+              ${desc_cells}
+              ${padder}
+            </tr>
+            <tr>
+              <td><h6>Temp (°C)</h6></td>
+              ${temp_cells}
+              ${padder}
+            </tr>
+            <tr>
+              <td><h6>RealFeel</h6></td>
+              ${feelsLike_cells}
+              ${padder}
+            </tr>
+            <tr>
+              <td><h6>Wind (km/h)</h6></td>
+              ${wind_cells}
+              ${padder}
+            </tr>
+          </tbody>
+        </table>
+      `;
     }
-
     return html;
   }
   

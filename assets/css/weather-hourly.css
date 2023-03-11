@@ -1,35 +1,60 @@
 #weather-hourly {
-    background-color: rgb(50, 51, 59);
-    display: none;
+    padding-top: 4px !important;
+    border-left: 4px solid rgb(50, 46, 56) !important;
+    border-right: 4px solid rgb(50, 46, 56) !important;
+    background-color: rgb(74, 88, 116);
+    box-shadow: none !important;
 }
-
-#parent {
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
+#weather-hourly > h4 {
+    font: bold 17px 'Trebuchet MS';
+    color: rgb(214, 210, 207);
+    text-shadow: 0px 2px 0 rgb(58, 66, 75);
 }
-
-#forec {
-    padding: 5px;
+#weather-hourly > hr {
+    margin-bottom: 33px;
+    border: 1px solid rgb(247, 247, 247);
 }
-
-td,
-th {
-    padding: 10px;
+.weather-hourly-table {
+    margin-bottom: 0;
+    padding-bottom: 56px;
 }
-
-td {
-    text-align: center;
-    color:white;
+.weather-hourly-table::-webkit-scrollbar {
+    height: 12px;
+    background-color: rgb(65, 75, 97);
 }
-
-th[scope='col'] {
-    color: #fff;
+.weather-hourly-table::-webkit-scrollbar-thumb {
+    border: 2px solid rgb(170, 136, 143);
+    border-radius: 5px;
+    background-color: rgb(199, 162, 168);
 }
-
-table {
-    border-collapse: collapse;
-    letter-spacing: 1px;
-    font-family: sans-serif;
-    font-size: 0.8rem;
+.weather-hourly-table > tbody > tr {
+    font: bolder 14px 'Consolas';
+    color: rgb(218, 225, 233);
+    text-shadow: 0px 1px 0 rgb(51, 51, 54);
+}
+.weather-hourly-table > tbody > tr > td {
+    padding: 2px 15px;
+    border-bottom: 2px solid rgb(101, 114, 139);
+}
+.weather-hourly-table > tbody > tr > td > img {
+    width: 48px; 
+    margin: -10px 0;
+}
+.weather-hourly-table > tbody > tr > td > h5 {
+    width: 95px;
+    margin: 2px 0;
+    text-align: left;
+    font: bolder 16px 'Trebuchet MS';
+    color: rgb(216, 182, 130);
+    text-shadow: 0px 1px 0 rgb(40, 47, 73);
+}
+.weather-hourly-table > tbody > tr > td > h6 {
+    margin: 3px 0;
+    text-align: left;
+    font: bolder 15px 'Trebuchet MS';
+    color: rgb(192, 197, 204);
+    text-shadow: 0px 1px 0 rgb(55, 60, 78);
+}
+.no-bottom-border > td {
+    border-bottom: none !important;
 }
