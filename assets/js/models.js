@@ -16,7 +16,7 @@ export class Hourly {
         this.desc = '-';
         this.temp = '-';
         this.feelsLike = '-';
-        this.windSpeed = '-';
+        this.windSpd = '-';
         this.windDir = '';
     }
 

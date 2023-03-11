@@ -38,13 +38,13 @@ export class Controller {
           'pointer-events': 'auto',
           'background-color': 'rgb(48, 58, 77)'
         });
-        $(`#day-${i}-form`).css('display', 'none');
+        $(`#day-${i}-table`).css('display', 'none');
       }
     $(`#day-${index}-btn`).css({
       'pointer-events': 'none',
       'background-color': 'rgb(80, 96, 128)'
     });
-    $(`#day-${index}-form`).css('display', 'block');
+    $(`#day-${index}-table`).css('display', 'block');
   }
 
   switchTab() {
@@ -180,10 +180,13 @@ export class Controller {
         nearbyWeatherData.geonames.splice(0, 1);
       }).error(() => {});
       let temp = [];
-      for (let city of nearbyWeatherData.geonames)
-        await $.getJSON(this.#apiCurrentUrl + `?q=${city.name}&units=metric&appid=${this.#apiKey}`, (nearbyData) => {
-          temp.push(nearbyData);
-        }).error(() => {});
+      for (let city of nearbyWeatherData.geonames) {
+        try {
+          await $.getJSON(this.#apiCurrentUrl + `?q=${city.name}&units=metric&appid=${this.#apiKey}`, (nearbyData) => {
+            temp.push(nearbyData);
+          }).error(() => {});
+        } catch (e) {}
+      } 
       nearbyWeatherData = temp;
     } catch(e) {}
     this.#parser.dataTransitNearby(nearbyWeatherData, this.#mediaUrl);

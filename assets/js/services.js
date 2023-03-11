@@ -56,7 +56,7 @@ export class Parser {
       modelHour.desc = hour.weather[0].main;  
       modelHour.temp = Math.round(hour.main.temp);
       modelHour.feelsLike = Math.round(hour.main.feels_like);  
-      modelHour.windSpeed = Math.ceil(hour.wind.speed);
+      modelHour.windSpd = Math.ceil(hour.wind.speed);
       modelHour.windDir = directionNames[Math.floor((hour.wind.deg / 22.5) + 0.5) % 16];
       if (modelHour.time === model.forecast[0].hourly[0].time) {
         model.forecast[i].iconUrl = modelHour.iconUrl;
@@ -82,7 +82,6 @@ export class Parser {
       model.nearby[i].temp = Math.round(city.main.temp);
       i++;
     }
-    console.log(this.#model);
   }
 
   // private:
