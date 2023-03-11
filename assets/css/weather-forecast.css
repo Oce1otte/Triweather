@@ -2,7 +2,6 @@
     max-height: 322px;
     box-shadow: none !important;
     border-top: 3px solid rgb(50, 46, 56) !important;
-    border-right: none;
     border-bottom: 4px solid rgb(50, 46, 56) !important;
 }
 #weather-forecast::-webkit-scrollbar {
